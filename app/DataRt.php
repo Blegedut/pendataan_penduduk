@@ -15,4 +15,17 @@ class DataRt extends Model
         'periode_awal',
         'periode_akhir'
     ];
+
+    public function Rw()
+    {
+        return $this->belongsTo('App\DataRw');
+    }
+    public function Kk()
+    {
+        return $this->belongsTo('App\DataRw');
+    }
+
+    public function pdd () {
+        return $this->hasMany('App\DataPenduduk','rt_id');
+    }
 }

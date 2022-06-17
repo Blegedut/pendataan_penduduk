@@ -29,31 +29,59 @@
         <section class="section">
             <div class="card shadow mb-5">
                 <div class="card-body">
-                    <button class="btn btn-primary rounded-pill mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <i class="fas fa-plus"></i> Tambah Data
-                    </button>
+                    <form id="filter-tanggal" method="GET" action="">
+                        <div class="row justify-content-start mb-4">
+                            <div class="col-1">
+                                RW
+                                <select name="" id="" class="form-select">
+                                </select>
+                            </div>
+                            
+                            <div class="col-1">
+                                RT
+                                <select name="" id="" class="form-select">
+                                </select>
+                            </div>
+                            <div class="col-4 mt-4">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </div>
+                        </div>
+                    </form>
                     <table class="table table-striped" id="table1">
                         <thead>
                             <tr>
                                 <th>No.</th>
                                 <th>Nama</th>
-                                <th>Nik</th>
-                                <th>Action</th>
+                                <th>NIK</th>
+                                <th>No. KK</th>
+                                <th>Alamat</th>
+                                <th>RW / RT</th>
+                                <th>Agama</th>
+                                <th>Tempat & Tanggal Lahir</th>
+                                <th>Usia</th>
+                                <th>Status Keluarga</th>
+                                <th>Pekerjaan</th>
+                                <th>Status Pernikahan</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($data as $d)
+                                
                             <tr>
-                                <td>3123</td>
-                                <td>Delep</td>
-                                <td>123</td>
-                                <td>
-                                    <a href='#' class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                    <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editData"><i
-                                            class="fas fa-edit"></i></a>
-                                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete"><i
-                                            class="fas fa-trash"></i></a>
-                                </td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$d->nama}}</td>
+                                <td>{{$d->nik}}</td>
+                                <td>{{$d->kk->no_kk}}</td>
+                                <td>{{$d->alamat}}</td>
+                                <td>{{$d->rw->rw}} / {{$d->rt->rt}}</td>
+                                <td>{{$d->agama}}</td>
+                                <td>{{$d->tmp_lahir}}, {{Carbon\Carbon::parse($d->tgl_lahir)->format('d-m-Y')}}</td>
+                                <td>{{$d->usia}}</td>
+                                <td>{{$d->status_keluarga}}</td>
+                                <td>{{$d->pekerjaan}}</td>
+                                <td>{{$d->status_pernikahan}}</td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

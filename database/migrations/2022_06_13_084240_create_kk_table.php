@@ -22,7 +22,7 @@ class CreateKkTable extends Migration
             $table->foreign('rt_id')->references('id')->on('rt')->onDelete('cascade');
             $table->unsignedBigInteger('rw_id');
             $table->foreign('rw_id')->references('id')->on('rw')->onDelete('cascade');
-            $table->string('jumlah_individu');
+            $table->enum('status_ekonomi',['Mampu','Tidak Mampu']);
             $table->timestamps();
         });
     }

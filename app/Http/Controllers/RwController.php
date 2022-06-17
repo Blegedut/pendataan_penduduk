@@ -14,7 +14,9 @@ class RwController extends Controller
      */
     public function index()
     {
-        return view('rw.index');
+        $data = DataRw::get();
+
+        return view('rw.index',compact('data'));
     }
 
     /**
@@ -84,7 +86,23 @@ class RwController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = DataRw::where('id', $id)->firstOrFail();
+
+        $request->validate([
+            'nama' => 'required',
+            'rw' => 'required',
+            'periode_awal' => 'required',
+            'periode_akhir' => 'required',
+        ]);
+
+        $data->nama = $request->nama;
+        $data->rw = $request->rw;
+        $data->periode_awal = $request->periode_awal;
+        $data->periode_akhir = $request->periode_akhir;
+        $data->update();
+
+        return redirect()->route('rw.index');
+
     }
 
     /**
@@ -95,6 +113,10 @@ class RwController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = DataRw::find($id);
+
+        $data->delete();
+
+        return redirect()->route('rw.index');
     }
 }

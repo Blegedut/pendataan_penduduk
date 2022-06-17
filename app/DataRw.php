@@ -14,4 +14,16 @@ class DataRw extends Model
         'periode_awal',
         'periode_akhir'
     ];
+
+    public function rt () {
+        return $this->hasMany('App\DataRt','rw_id');
+    }
+
+    public function kk () {
+        return $this->hasMany('App\DataKk','rw_id');
+    }
+
+    public function pdd () {
+        return $this->hasMany('App\DataPenduduk','rw_id');
+    }
 }

@@ -16,4 +16,17 @@ class DataKk extends Model
         'rw_id',
         'jumlah_individu'
     ];
+
+    public function Rw()
+    {
+        return $this->belongsTo('App\DataRw');
+    }
+
+    public function Rt() {
+        return $this->belongsTo('App\DataRt');
+    }
+    public function pdd() {
+        return $this->hasMany('App\DataPenduduk');
+    }
+
 }

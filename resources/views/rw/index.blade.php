@@ -47,6 +47,31 @@
   </div>
 
   {{-- END MODAL ADD --}}
+
+  {{-- MODAL DELETE --}}
+  @foreach ($data as $r)
+  <div class="modal fade" id="modalDelete{{ $r->id }}" tabindex="-1" aria-labelledby="modalHapusBarang"
+      aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-body">
+                  <i class="fas fa-exclamation-circle mb-2"
+                      style="color: #e74a3b; font-size:120px; justify-content:center; display:flex"></i>
+                  <h5 class="text-center">Apakah anda yakin ingin menghapus RW {{ $r->rw }} ?</h5>
+              </div>
+              <div class="modal-footer">
+                  <form action={{ url('/rw/delete/' . $r->id) }} method="POST">
+                      @csrf
+                      @method('DELETE')
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                      <button type="submit" class="btn btn-primary">Yes, Delete it</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+@endforeach
+{{-- END MODAL DELETE --}}
 <div class="container-fluid">
     <div class="row">
         <div class="py-3">
@@ -69,25 +94,27 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($data as $d)
+                                
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$d->nama}}</td>
+                                <td>{{$d->rw}}</td>
+                                <td>{{$d->periode_awal}} - {{$d->periode_akhir}}</td>
                                 <td>
-                                    <a href='#' class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                    <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editData"><i
-                                            class="fas fa-edit"></i></a>
-                                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete"><i
+                                    <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editData{{$d->id}}"><i
+                                        class="fas fa-edit"></i></a>
+                                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete{{$d->id}}"><i
                                             class="fas fa-trash"></i></a>
-                                </td>
-                            </tr>
+                                        </td>
+                                    </tr>
+                                    @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
     </div>
-    {{-- @include('rt/edit') --}}
+    @include('rw/formEdit')
     </section>
 </div>
 @endsection

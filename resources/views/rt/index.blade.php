@@ -1,59 +1,9 @@
 @extends('layouts.master')
 
 @section('master')
-    {{-- MODAL ADD --}}
-
-    {{-- <div class="modal fade text-left" id="addData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel1">Tambah RT</h5>
-                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                        <i data-feather="x"></i>
-                    </button>
-                </div>
-                <form action="#" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="row mb-3">
-                            <h6>Nama Ketua RT</h6>
-                            <input class="form-control" type="text" placeholder="Nama Ketua RT" name="#" required>
-                        </div>
-
-                        <div class="row mb-3">
-                            <h6>RT</h6>
-                            <input class="form-control @error('rt') is-invalid @enderror" type="text"
-                                placeholder="RT (contoh : 01,02,03)" name="rt" required>
-                            @error('rt')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn" data-bs-dismiss="modal">
-                            <i class="bx bx-x d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Close</span>
-                        </button>
-                        <button type="submit" class="btn btn-primary ml-1">
-                            <i class="bx bx-check d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Submit</span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- END MODAL ADD --}}
-
-
-
     {{-- MODAL DELETE --}}
 
-    {{-- @foreach ($rt as $r)
+    @foreach ($data as $r)
         <div class="modal fade" id="modalDelete{{ $r->id }}" tabindex="-1" aria-labelledby="modalHapusBarang"
             aria-hidden="true">
             <div class="modal-dialog">
@@ -64,7 +14,7 @@
                         <h5 class="text-center">Apakah anda yakin ingin menghapus RT {{ $r->rt }} ?</h5>
                     </div>
                     <div class="modal-footer">
-                        <form action={{ url('/data_rt/delete/' . $r->id) }} method="POST">
+                        <form action={{ url('/rt/delete/' . $r->id) }} method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -74,31 +24,69 @@
                 </div>
             </div>
         </div>
-    @endforeach --}}
+    @endforeach
 
     {{-- END MODAL DELETE --}}
 
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ url('rt/store') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Nama Ketua RT</label>
+                            <input type="text" class="form-control" name="nama" id="exampleInputEmail1"
+                                aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">RT</label>
+                            <input type="text" class="form-control" name="rt" id="exampleInputPassword1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">RW</label>
+                            <select class="form-select" name="rw_id" id="rw_id">
+                                <option value="">-- Pilih RW --</option>
+                                @foreach ($select as $d)
+                                    <option value="{{ $d->id }}">{{ $d->rw }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="row">
+                            <label for="exampleInputPassword1" class="form-label">Periode</label>
+
+                            <div class="col">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" name="periode_awal"
+                                        id="exampleInputPassword1">
+                                </div>
+                            </div>
+                            &mdash;
+                            <div class="col">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" name="periode_akhir"
+                                        id="exampleInputPassword1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
     </div>
-  </div>
-  {{-- END MODAL ADD --}}
-  
+    {{-- END MODAL ADD --}}
+
     <div class="container-fluid">
         <div class="row">
             <div class="py-3">
@@ -107,7 +95,8 @@
             <section class="section">
                 <div class="card shadow mb-5">
                     <div class="card-body">
-                        <button class="btn btn-primary rounded-pill mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button class="btn btn-primary rounded-pill mb-3" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
                             <i class="fas fa-plus"></i> Tambah Data
                         </button>
                         <table class="table table-striped" id="table1">
@@ -115,33 +104,35 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Ketua RT</th>
-                                    <th>RW</th>
                                     <th>RT</th>
+                                    <th>RW</th>
                                     <th>Periode</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <a href='#' class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                        <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editData"><i
-                                                class="fas fa-edit"></i></a>
-                                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete"><i
-                                                class="fas fa-trash"></i></a>
-                                    </td>
-                                </tr>
+                                @foreach ($data as $d)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $d->nama }}</td>
+                                        <td>{{ $d->rt }}</td>
+                                        <td>{{ $d->Rw->rw }}</td>
+                                        <td>{{ $d->periode_awal }} / {{ $d->periode_akhir }}</td>
+                                        <td>
+                                            <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editData{{$d->id}}"><i
+                                                    class="fas fa-edit"></i></a>
+                                            <a class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#modalDelete{{ $d->id }}"><i
+                                                    class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
         </div>
-        {{-- @include('rt/edit') --}}
+        @include('rt/formEdit')
         </section>
     </div>
 @endsection

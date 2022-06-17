@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DataRt;
+use App\DataRw;
 use Illuminate\Http\Request;
 
 class RtController extends Controller
@@ -13,7 +15,10 @@ class RtController extends Controller
      */
     public function index()
     {
-        return view('rt.index');
+        $data = DataRt::all();
+
+        $select = DataRw::get();
+        return view('rt.index',compact(['data','select']));
     }
 
     /**
@@ -34,7 +39,23 @@ class RtController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'nama'=> 'required',
+            'rt'=> 'required',
+            'rw_id'=> 'required',
+            'periode_awal'=> 'required',
+            'periode_akhir'=> 'required'
+        ]);
+
+        $data = new DataRt();
+        $data->nama = $request->nama;
+        $data->rt = $request->rt;
+        $data->rw_id = $request->rw_id;
+        $data->periode_awal = $request->periode_awal;
+        $data->periode_akhir = $request->periode_akhir;
+        $data->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -68,7 +89,22 @@ class RtController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = DataRt::where('id', $id)->first();
+
+        $request->validate([
+            'nama' => 'required',
+            'rt' => 'required',
+            'periode_awal' => 'required',
+            'periode_akhir' => 'required',
+        ]);
+
+        $data->nama = $request->nama;
+        $data->rt = $request->rt;
+        $data->periode_awal = $request->periode_awal;
+        $data->periode_akhir = $request->periode_akhir;
+        $data->update();
+
+        return redirect()->route('rt.index');
     }
 
     /**
@@ -79,6 +115,10 @@ class RtController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = DataRt::find($id);
+        // dd($data);
+        $data->delete();
+
+        return redirect()->route('rt.index');
     }
 }

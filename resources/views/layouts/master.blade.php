@@ -63,41 +63,71 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
+                        @hasrole('superadmin')
                         <li class="sidebar-title">Dashboard</li>
-
-                        <li class="sidebar-item {{ request()->is('/*') ? 'active' : '' }} ">
-                            <a href="/" class='sidebar-link'>
+                        
+                        <li class="sidebar-item {{ request()->is('dashboard*') ? 'active' : '' }} ">
+                            <a href="/dashboard" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
+                        @endhasrole
 
                         <li class="sidebar-title">Menu</li>
 
+                        @hasrole('superadmin')
                         <li class="sidebar-item {{ request()->is('rw*') ? 'active' : '' }}">
                             <a href={{ url('/rw') }} class='sidebar-link'>
                                 <i class="bi bi-grid"></i>
                                 <span>Data RW</span>
                             </a>
                         </li>
+                        @endhasrole
+
+                        @hasrole('superadmin|rw')
                         <li class="sidebar-item {{ request()->is('rt*') ? 'active' : '' }}">
                             <a href={{ url('/rt') }} class='sidebar-link'>
                                 <i class="bi bi-grid"></i>
                                 <span>Data RT</span>
                             </a>
                         </li>
+                        @endhasrole
+
+                        @hasrole('superadmin|rw|rt')
                         <li class="sidebar-item {{ request()->is('kk*') ? 'active' : '' }}">
                             <a href={{ url('/kk') }} class='sidebar-link'>
                                 <i class="bi bi-grid"></i>
                                 <span>Data Kartu Keluarga</span>
                             </a>
                         </li>
+                        @endhasrole
+
+                        @hasrole('superadmin|rw|rt|warga')
                         <li class="sidebar-item {{ request()->is('penduduk*') ? 'active' : '' }}">
                             <a href={{ url('/penduduk') }} class='sidebar-link'>
                                 <i class="bi bi-grid"></i>
                                 <span>Data Penduduk</span>
                             </a>
                         </li>
+                        @endhasrole
+                        <li class="sidebar-title">Setting</li>
+                        <li class="sidebar-item ">
+                            {{-- <a href={{ url('/penduduk') }} class='sidebar-link'> --}}
+                                <a class="sidebar-link" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        <i class="fa fa-sign-out-alt "></i>
+                                        <span>Logout</span>
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                
+                            </a>
+                        </li>
+
                     </ul>
                 </div>
             </div>
