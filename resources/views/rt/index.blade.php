@@ -86,7 +86,6 @@
         </div>
     </div>
     {{-- END MODAL ADD --}}
-
     <div class="container-fluid">
         <div class="row">
             <div class="py-3">

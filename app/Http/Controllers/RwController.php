@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataRw;
 use Illuminate\Http\Request;
+use App\User;
 
 class RwController extends Controller
 {
@@ -44,13 +45,23 @@ class RwController extends Controller
             'periode_akhir' => 'required',
         ]);
 
+        $rw = User::create([
+            'name' => $request->nama,
+            'email' => 'rw' . $request->rw . '@gmail.com',
+            'password' =>  bcrypt('password'),
+
+        ]);
+
         $data = new DataRw();
         $data->nama = $request->nama;
         $data->rw = $request->rw;
         $data->periode_awal = $request->periode_awal;
         $data->periode_akhir = $request->periode_akhir;
+        $data->user_id = $rw->id;
         // dd($data);
         $data->save();
+
+        $rw->assignRole('rw');
 
         return redirect()->back();
     }
@@ -101,6 +112,11 @@ class RwController extends Controller
         $data->periode_akhir = $request->periode_akhir;
         $data->update();
 
+        User::where('id','=',$data->user_id)->update([
+            'name' => $request->nama,
+            'email'=> 'rw' . $request->rw . '@gmail.com',
+            ]);
+
         return redirect()->route('rw.index');
 
     }
@@ -114,6 +130,8 @@ class RwController extends Controller
     public function destroy($id)
     {
         $data = DataRw::find($id);
+
+        User::where('id','=',$data->user_id)->delete();
 
         $data->delete();
 

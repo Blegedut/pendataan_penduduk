@@ -23,11 +23,6 @@
                             <input type="text" class="form-control" value="{{ $d->no_kk }}" name="no_kk"
                                 id="exampleInputPassword1">
                         </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Jumlah Individu</label>
-                            <input type="text" class="form-control" value="{{ $d->jumlah_individu }}"
-                                name="jumlah_individu" id="exampleInputPassword1">
-                        </div>
                         <div class="row">
                             <div class="col">
                                 <div class="mb-3">
@@ -35,7 +30,7 @@
                                     <select class="form-select" name="rw_id" id="rt_id">
                                         <option value="">-- Pilih RW --</option>
                                         @foreach ($selectRw as $rw)
-                                            <option value="{{ $rw->id }}" selected>{{ $rw->rw }}</option>
+                                            <option value={{ $rw->id }} {{$data[0]->rw_id === $rw->id ? 'selected' :''}}>{{ $rw->rw }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -47,7 +42,7 @@
                                     <select class="form-select" name="rt_id" id="rw_id">
                                         <option value="">-- Pilih RT --</option>
                                         @foreach ($selectRt as $rt)
-                                            <option value="{{ $rt->id }}" selected>{{ $rt->rt }}</option>
+                                            <option value={{ $rt->id }} {{$data[0]->rt_id === $rt->id ? 'selected' :''}}>{{ $rt->rt }}</option>
                                         @endforeach
                                     </select>
                                 </div>

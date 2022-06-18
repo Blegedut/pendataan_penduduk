@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataRt;
 use App\DataRw;
+use App\User;
 use Illuminate\Http\Request;
 
 class RtController extends Controller
@@ -39,6 +40,8 @@ class RtController extends Controller
      */
     public function store(Request $request)
     {
+        $dataRt = DataRw::where('id',$request->rw_id)->get();
+        // dd($dataRt[0]->rw);
         $this->validate($request,[
             'nama'=> 'required',
             'rt'=> 'required',
@@ -47,13 +50,24 @@ class RtController extends Controller
             'periode_akhir'=> 'required'
         ]);
 
+        $rt = User::create([
+            'name' => $request->nama,
+            'email' => 'rt' . $request->rt . $dataRt[0]->rw. '@gmail.com',
+            'password' =>  bcrypt('password'),
+        ]);
+        // dd($rt);
+
+
         $data = new DataRt();
         $data->nama = $request->nama;
         $data->rt = $request->rt;
         $data->rw_id = $request->rw_id;
         $data->periode_awal = $request->periode_awal;
         $data->periode_akhir = $request->periode_akhir;
+        $data->user_id = $rt->id;
         $data->save();
+
+        $rt->assignRole('rt');
 
         return redirect()->back();
     }
@@ -96,13 +110,21 @@ class RtController extends Controller
             'rt' => 'required',
             'periode_awal' => 'required',
             'periode_akhir' => 'required',
+            'rw_id'=> 'required',
         ]);
 
         $data->nama = $request->nama;
         $data->rt = $request->rt;
+        $data->rw_id = $request->rw_id;
         $data->periode_awal = $request->periode_awal;
         $data->periode_akhir = $request->periode_akhir;
         $data->update();
+        // dd($data);
+
+        // User::where('id',$data->id)->update([
+        //     'name' => $request->name,
+        //     'email' => 'rt' . $request->rt . '@gmail.com'
+        // ]);
 
         return redirect()->route('rt.index');
     }

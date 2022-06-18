@@ -203,7 +203,12 @@
                             data-bs-target="#exampleModal">
                             <i class="fas fa-plus"></i> Tambah Data
                         </button>
-                        <a href={{ url('/penduduk/export/'. $data->id) }} class="btn btn-success mb-3 mr-1">Export</a>
+                        @if (count($penduduk) > 0)
+                        <a href={{ url('/penduduk/export/'. $data->id) }} class="btn btn-danger rounded-pill mb-3 mr-1"> 
+                            <i class="fas fa-file-pdf"></i>
+                            <span>Export Pdf</span>
+                        </a> 
+                        @endif
                         <table class="table table-striped" id="table1">
                             <thead>
                                 <tr>

@@ -22,6 +22,8 @@ class CreateKkTable extends Migration
             $table->foreign('rt_id')->references('id')->on('rt')->onDelete('cascade');
             $table->unsignedBigInteger('rw_id');
             $table->foreign('rw_id')->references('id')->on('rw')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum('status_ekonomi',['Mampu','Tidak Mampu']);
             $table->timestamps();
         });

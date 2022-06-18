@@ -17,6 +17,8 @@ class CreateRwTable extends Migration
             $table->bigIncrements('id');
             $table->string('nama');
             $table->string('rw');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('periode_awal');
             $table->string('periode_akhir');
             $table->timestamps();

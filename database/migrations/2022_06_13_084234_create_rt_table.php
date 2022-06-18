@@ -19,6 +19,8 @@ class CreateRtTable extends Migration
             $table->string('rt');
             $table->unsignedBigInteger('rw_id')->nullable();
             $table->foreign('rw_id')->references('id')->on('rw')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('periode_awal');
             $table->string('periode_akhir');
             $table->timestamps();

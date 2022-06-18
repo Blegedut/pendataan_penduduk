@@ -27,8 +27,8 @@
                             <label for="exampleInputPassword1" class="form-label">RW</label>
                             <select class="form-select" name="rw_id" id="rw_id">
                                 <option value="">-- Pilih RW --</option>
-                                @foreach ($select as $d)
-                                    <option value="{{ $d->id }}" selected>{{ $d->rw }}</option>
+                                @foreach ($select as $da)
+                                    <option value={{ $da->id }} {{$data[0]->rw_id === $da->id ? 'selected' :''}}>{{ $da->rw}}</option>
                                 @endforeach
                             </select>
                         </div>
