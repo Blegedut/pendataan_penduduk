@@ -21,9 +21,10 @@ Route::get('/', function () {
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // });
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::group(['middleware' => ['auth']], function () {
+    
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     Route::group(['prefix' => 'rw'], function () {
         Route::get('/', 'RwController@index')->name('rw.index');
@@ -49,8 +50,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
     Route::group(['prefix' => 'penduduk'], function () {
         Route::get('/', 'PendudukController@index')->name('penduduk.index');
-        // Route::get('/export', 'PendudukController@export')->name('penduduk.export');
         Route::get('/export/{id}', 'PendudukController@export')->name('penduduk.export');
+        Route::get('/filter', 'PendudukController@filter')->name('filter.data');
     });
 });
 

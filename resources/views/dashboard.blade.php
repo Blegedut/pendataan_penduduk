@@ -5,82 +5,84 @@
 @section('master')
     <section>
         <div class="container-fluid">
-            <div class="row">
-                <div>
-                    <h1>Dashboard</h1>
-                </div>
+            <div class="page-heading">
+                <h3>Dashboard</h3>
             </div>
             <div class="page-content mt-4">
                 {{-- <section class="row"> --}}
-                {{-- <div class="col-12 col-lg-8"> --}}
-                    <div class="row">
-                        <div class="col-6 col-lg-3 col-md-6">
-                            <div class="card shadow">
-                                <div class="card-body px-3 py-4-5">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="stats-icon purple">
-                                                <i class="fas fa-user"></i>
-                                            </div>
+                <div class="row">
+                    <div class="col-6 col-lg-3 col-md-6">
+                        <div class="card shadow">
+                            <div class="card-body px-4 py-4-5">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="stats-icon green">
+                                            <i class="fas fa-users"></i>
                                         </div>
-                                        <div class="col-md-8">
-                                            <h6 class="text-muted font-semibold">Data RT</h6>
-                                            <h6 class="font-extrabold mb-0">244</h6>
-                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h6 class="text-muted font-semibold">Data RW</h6>
+                                        <h6 class="font-extrabold mb-0">{{ \App\DataRw::count() }}</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-3 col-md-6">
-                            <div class="card shadow">
-                                <div class="card-body px-3 py-4-5">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="stats-icon blue">
-                                                <i class="fas fa-address-card"></i>
-                                            </div>
+                    </div>
+                    <div class="col-6 col-lg-3 col-md-6">
+                        <div class="card shadow">
+                            <div class="card-body px-3 py-4-5">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="stats-icon purple">
+                                            <i class="fas fa-user"></i>
                                         </div>
-                                        <div class="col-md-8">
-                                            <h6 class="text-muted font-semibold">Data KK</h6>
-                                            <h6 class="font-extrabold mb-0">24</h6>
-                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h6 class="text-muted font-semibold">Data RT</h6>
+                                        <h6 class="font-extrabold mb-0">{{ \App\DataRt::count() }}</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-3 col-md-6">
-                            <div class="card shadow">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="stats-icon green">
-                                                <i class="fas fa-users"></i>
-                                            </div>
+                    </div>
+                    <div class="col-6 col-lg-3 col-md-6">
+                        <div class="card shadow">
+                            <div class="card-body px-3 py-4-5">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="stats-icon blue">
+                                            <i class="fas fa-address-card"></i>
                                         </div>
-                                        <div class="col-md-8">
-                                            <h6 class="text-muted font-semibold">Total Warga</h6>
-                                            <h6 class="font-extrabold mb-0">24</h6>
-                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h6 class="text-muted font-semibold">Data KK</h6>
+                                        <h6 class="font-extrabold mb-0">{{ \App\DataKk::count() }}</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-3 col-md-6">
-                            <div class="card shadow">
-                                <div class="card-body py-4 px-5">
-                                    <div class="d-flex align-items-center">
-                                        <div class="avatar avatar-xl">
-                                            <img src="assets/images/faces/1.jpg" alt="Face 1">
+                    </div>
+                    <div class="col-6 col-lg-3 col-md-6">
+                        <div class="card shadow">
+                            <div class="card-body px-4 py-4-5">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="stats-icon green">
+                                            <i class="fas fa-users"></i>
                                         </div>
-                                        <div class="ms-3 name">
-                                            <h5 class="font-bold"></h5>
-                                            <h6 class="text-muted mb-0"></h6>
-                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h6 class="text-muted font-semibold">Total Warga</h6>
+                                        <h6 class="font-extrabold mb-0">{{ \App\DataPenduduk::count() }}</h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12 mt-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-9">
+                        <div class="col-lg-12">
                             <div class="card shadow">
                                 <div class="card-header">
                                     <h4>Pertambahan warga setiap bulan</h4>
@@ -91,8 +93,6 @@
                             </div>
                         </div>
                     </div>
-                {{-- </div> --}}
-                <section class="row">
                     <div class="col-12 col-lg-3">
                         <div>
                             <div class="col-12 col-lg-12">
@@ -119,8 +119,124 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
             </div>
         </div>
     </section>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    {{-- CHART GENDER --}}
+    <script>
+        const data = {
+            labels: [
+                'Laki-Laki',
+                'Perempuan'
+            ],
+            datasets: [{
+                label: 'Gender',
+                data: [{{ $gender_laki }}, {{ $gender_cewe }}],
+                backgroundColor: [
+                    'rgb(87, 202, 235)',
+                    'rgb(255, 121, 118)'
+                ],
+                hoverOffset: 4
+            }]
+        };
+
+        const config = {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                }
+            },
+        };
+
+        const chartGender = new Chart(
+            document.getElementById('gender'),
+            config
+        );
+    </script>
+    {{-- CHART GENDER --}}
+
+    {{-- CHART USIA --}}
+    <script>
+        const data_usia = {
+            labels: [
+                'Dewasa',
+                'Anak-anak'
+            ],
+            datasets: [{
+                label: 'Usia',
+                data: [{{ $dewasa }}, {{ $anak_anak }}],
+                backgroundColor: [
+                    'rgb(87, 202, 235)',
+                    'rgb(255, 121, 118)'
+                ],
+                hoverOffset: 4
+            }]
+        };
+
+        const usia = {
+            type: 'bar',
+            data: data_usia,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                }
+            },
+        };
+
+        const chartUsia = new Chart(
+            document.getElementById('usia'),
+            usia
+        );
+    </script>
+    {{-- CHART USIA --}}
+
+    {{-- CHART PENDUDUK --}}
+    <script>
+        const datawarga = {
+            labels: ['Januari', 'Februari', 'Maret', 'April', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober',
+                'November',
+                'Desember'
+            ],
+            datasets: [{
+                label: 'Warga',
+                data: [
+                    @foreach ($data_month as $data)
+                        {{ $data }},
+                    @endforeach
+                ],
+                fill: true,
+                borderColor: 'rgb(86, 182, 247)',
+                tension: 0.3
+            }]
+        };
+
+        const warga = {
+            type: 'line',
+            data: datawarga,
+            options: {
+                responsive: true,
+            }
+        };
+
+        const chartWarga = new Chart(
+            document.getElementById('warga'),
+            warga
+        );
+    </script>
+    {{-- CHART PENDUDUK --}}
 @endsection

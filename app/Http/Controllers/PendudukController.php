@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\DataKk;
 use App\DataPenduduk;
+use App\DataRt;
+use App\DataRw;
 // use App\Exports\PendudukExport;
 // use Maatwebsite\Excel\Fa\Excel;
 use Illuminate\Http\Request;
@@ -21,7 +23,9 @@ class PendudukController extends Controller
     public function index()
     {
         $data = DataPenduduk::all();
-        return view('penduduk.index',compact('data'));
+        $selectRt = DataRt::get();
+        $selectRw = DataRw::get();
+        return view('penduduk.index', compact('data', 'selectRt', 'selectRw'));
     }
 
     /**
@@ -40,9 +44,9 @@ class PendudukController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$id)
+    public function store(Request $request, $id)
     {
-        $dataKk = DataKk::where('id',$id)->firstOrFail();
+        $dataKk = DataKk::where('id', $id)->firstOrFail();
         // dd($data);
 
         $this->validate($request, [
@@ -60,20 +64,20 @@ class PendudukController extends Controller
         ]);
 
         $data = new DataPenduduk();
-        $data->nama = $request->nama ;
-        $data->nik = $request->nik ;
+        $data->nama = $request->nama;
+        $data->nik = $request->nik;
         $data->kk_id = $dataKk->id;
-        $data->rw_id = $dataKk->rw_id ;
+        $data->rw_id = $dataKk->rw_id;
         $data->rt_id = $dataKk->rt_id;
-        $data->gender = $request->gender ;
-        $data->usia = $request->usia ;
-        $data->tmp_lahir = $request->tmp_lahir ;
-        $data->tgl_lahir = $request->tgl_lahir ;
-        $data->agama = $request->agama ;
-        $data->alamat = $request->alamat ;
-        $data->status_pernikahan = $request->status_pernikahan ;
-        $data->status_keluarga = $request->status_keluarga ;
-        $data->pekerjaan = $request->pekerjaan ;
+        $data->gender = $request->gender;
+        $data->usia = $request->usia;
+        $data->tmp_lahir = $request->tmp_lahir;
+        $data->tgl_lahir = $request->tgl_lahir;
+        $data->agama = $request->agama;
+        $data->alamat = $request->alamat;
+        $data->status_pernikahan = $request->status_pernikahan;
+        $data->status_keluarga = $request->status_keluarga;
+        $data->pekerjaan = $request->pekerjaan;
         // dd($data);
         $data->save();
 
@@ -112,7 +116,7 @@ class PendudukController extends Controller
     public function update(Request $request, $id)
     {
         $data = DataPenduduk::where('id', $id)->firstOrFail();
-        
+
         $request->validate([
             'nama' => 'required',
             'nik' => 'required',
@@ -127,17 +131,17 @@ class PendudukController extends Controller
             'pekerjaan' => 'required',
         ]);
 
-        $data->nama = $request->nama ;
-        $data->nik = $request->nik ;
-        $data->gender = $request->gender ;
-        $data->usia = $request->usia ;
-        $data->tmp_lahir = $request->tmp_lahir ;
-        $data->tgl_lahir = $request->tgl_lahir ;
-        $data->agama = $request->agama ;
-        $data->alamat = $request->alamat ;
-        $data->status_pernikahan = $request->status_pernikahan ;
-        $data->status_keluarga = $request->status_keluarga ;
-        $data->pekerjaan = $request->pekerjaan ;
+        $data->nama = $request->nama;
+        $data->nik = $request->nik;
+        $data->gender = $request->gender;
+        $data->usia = $request->usia;
+        $data->tmp_lahir = $request->tmp_lahir;
+        $data->tgl_lahir = $request->tgl_lahir;
+        $data->agama = $request->agama;
+        $data->alamat = $request->alamat;
+        $data->status_pernikahan = $request->status_pernikahan;
+        $data->status_keluarga = $request->status_keluarga;
+        $data->pekerjaan = $request->pekerjaan;
         // dd($data);
         $data->update();
 
@@ -156,18 +160,29 @@ class PendudukController extends Controller
         $data->delete();
 
         return redirect()->back();
-    
-
     }
 
     public function export($id)
     {
-    	$data = DataKk::where('id',$id)->firstOrFail();
-        $penduduk = DataPenduduk::where('kk_id',$data->id)->get();
+        $data = DataKk::where('id', $id)->firstOrFail();
+        $penduduk = DataPenduduk::where('kk_id', $data->id)->get();
         // dd($penduduk);
         // PDF::loadHTML($html)->setPaper('a4', 'landscape')->setWarnings(false)->save('myfile.pdf')
-    	$pdf = PDF::loadview('penduduk.export',['kk'=>$penduduk], compact('penduduk'))->setPaper('a4', 'landscape')->setWarnings(false);
-    	return $pdf->download('kk.pdf');
+        $pdf = PDF::loadview('penduduk.export', ['kk' => $penduduk], compact('penduduk'))->setPaper('a4', 'landscape')->setWarnings(false);
+        return $pdf->download('kk.pdf');
+    }
+
+    public function filter(Request $request)
+    {
+        $selectRt = DataRt::get();
+        $selectRw = DataRw::get();
+
+        if ($request) {
+            $data = DataPenduduk::where('rw_id', $request->rw_id)->where('rt_id', $request->rt_id)->get();
+        } else {
+            $data = DataPenduduk::all();
+        }
+        return view('penduduk.index', compact(['data','selectRw','selectRt']));
     }
 
     // public function expot() 
