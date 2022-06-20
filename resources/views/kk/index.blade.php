@@ -15,11 +15,11 @@
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Nama Kepala Keluarga</label>
                     <input type="text" class="form-control" name="kepala_keluarga" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" placeholder="Nama Kepala Keluarga">
+                        aria-describedby="emailHelp" placeholder="Nama Kepala Keluarga" required>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Nomor Kartu Keluarga</label>
-                    <input type="text" class="form-control" placeholder="Nomor Kartu Keluarga" name="no_kk" id="exampleInputPassword1">
+                    <input type="text" class="form-control" placeholder="Nomor Kartu Keluarga" name="no_kk" id="exampleInputPassword1" required>
                 </div>
                 <div class="row">
                     <div class="col">
@@ -59,7 +59,7 @@
 
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Foto Rumah</label>
-                    <input type="file" class="form-control" name="image" id="exampleInputPassword1">
+                    <input type="file" class="form-control" name="image" id="exampleInputPassword1" required>
                 </div>
             </div>
             <div class="modal-footer">

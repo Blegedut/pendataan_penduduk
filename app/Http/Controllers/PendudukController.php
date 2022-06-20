@@ -6,13 +6,10 @@ use App\DataKk;
 use App\DataPenduduk;
 use App\DataRt;
 use App\DataRw;
-use Auth;
-// use App\Exports\PendudukExport;
-// use Maatwebsite\Excel\Fa\Excel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-// use PhpOffice\PhpSpreadsheet\Writer\Pdf;
 use Barryvdh\DomPDF\Facade\Pdf;
-// use PDF;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PendudukController extends Controller
 {
@@ -26,10 +23,10 @@ class PendudukController extends Controller
         $user =  Auth::user();
         // dd($user->Rw[0]);
 
-        if($user->hasRole('rw') == true) {
-            $data = DataPenduduk::where('rw_id','=',$user->Rw[0]->id)->get();
-        }  elseif($user->hasRole('rt') == true) {
-            $data = DataPenduduk::where('rt_id',$user->Rt[0]->id)->get();
+        if ($user->hasRole('rw') == true) {
+            $data = DataPenduduk::where('rw_id', '=', $user->Rw[0]->id)->get();
+        } elseif ($user->hasRole('rt') == true) {
+            $data = DataPenduduk::where('rt_id', $user->Rt[0]->id)->get();
         } else {
             $data = DataPenduduk::all();
         }
@@ -91,6 +88,8 @@ class PendudukController extends Controller
         $data->pekerjaan = $request->pekerjaan;
         // dd($data);
         $data->save();
+
+        Alert::success('Sukses!', 'Berhasil menambah kartu keluarga');
 
         return redirect()->back();
     }
@@ -156,6 +155,8 @@ class PendudukController extends Controller
         // dd($data);
         $data->update();
 
+        Alert::success('Sukses!', 'Berhasil mengedit kartu keluarga');
+
         return redirect()->back();
     }
 
@@ -169,6 +170,8 @@ class PendudukController extends Controller
     {
         $data = DataPenduduk::find($id);
         $data->delete();
+
+        Alert::Success('Sukses!', 'Berhasil menghapus kartu keluarga');
 
         return redirect()->back();
     }
@@ -193,7 +196,7 @@ class PendudukController extends Controller
         } else {
             $data = DataPenduduk::all();
         }
-        return view('penduduk.index', compact(['data','selectRw','selectRt']));
+        return view('penduduk.index', compact(['data', 'selectRw', 'selectRt']));
     }
 
     // public function expot()

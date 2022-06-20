@@ -8,8 +8,10 @@ use App\DataRt;
 use App\DataRw;
 use App\User;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class KkController extends Controller
 {
@@ -24,12 +26,12 @@ class KkController extends Controller
         $user =  Auth::user();
         // dd($user);
 
-        if($user->hasRole('rw') == true) {
-            $data = DataKk::where('rw_id','=',$user->Rw[0]->id)->get();
-        } elseif($user->hasRole('rt') == true) {
-            $data = DataKk::where('rt_id',$user->Rt[0]->id)->get();
+        if ($user->hasRole('rw') == true) {
+            $data = DataKk::where('rw_id', '=', $user->Rw[0]->id)->get();
+        } elseif ($user->hasRole('rt') == true) {
+            $data = DataKk::where('rt_id', $user->Rt[0]->id)->get();
         } elseif ($user->hasRole('warga') == true) {
-            $data = DataKk::where('user_id',$user->Kk[0]->user_id)->get();
+            $data = DataKk::where('user_id', $user->Kk[0]->user_id)->get();
         } else {
             $data = DataKk::all();
         }
@@ -37,7 +39,7 @@ class KkController extends Controller
 
         $selectRt = DataRt::get();
         $selectRw = DataRw::get();
-        return view('kk.index',compact(['selectRt','selectRw','data']));
+        return view('kk.index', compact(['selectRt', 'selectRw', 'data']));
     }
 
     /**
@@ -58,7 +60,7 @@ class KkController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'kepala_keluarga' => 'required',
             'no_kk' => 'required',
             'image' => 'required|file|max:3072',
@@ -69,7 +71,7 @@ class KkController extends Controller
 
         $kk  = User::create([
             'name' => $request->kepala_keluarga,
-            'email' => $request->no_kk ,
+            'email' => $request->no_kk,
             'password' =>  bcrypt('password'),
         ]);
 
@@ -87,14 +89,15 @@ class KkController extends Controller
         $filename = $img->getClientOriginalName();
 
         $data->image = $request->file('image')->getClientOriginalName();
-        if($request->hasFile('image')) {
-            $request->file('image')->storeAs('/foto_rumah',$filename);
+        if ($request->hasFile('image')) {
+            $request->file('image')->storeAs('/foto_rumah', $filename);
         }
         // dd($data);
         $data->save();
 
         $kk->assignRole('warga');
 
+        Alert::success('Sukses!', 'Berhasil menambah kartu keluarga');
 
         return redirect()->back();
     }
@@ -108,10 +111,10 @@ class KkController extends Controller
     public function show($id)
     {
         $data = DataKk::all();
-        $data = DataKk::where('id',$id)->firstOrFail();
+        $data = DataKk::where('id', $id)->firstOrFail();
 
-        $penduduk = DataPenduduk::where('kk_id',$data->id)->get();
-        return view('kk.showPenduduk',compact(['data','penduduk']));
+        $penduduk = DataPenduduk::where('kk_id', $data->id)->get();
+        return view('kk.showPenduduk', compact(['data', 'penduduk']));
     }
 
     /**
@@ -134,7 +137,7 @@ class KkController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = DataKk::where('id',$id)->firstOrFail();
+        $data = DataKk::where('id', $id)->firstOrFail();
 
         $request->validate([
             'kepala_keluarga' => 'required',
@@ -149,11 +152,11 @@ class KkController extends Controller
         $filename = $img->getClientOriginalName();
 
         $data->image = $request->file('image')->getClientOriginalName();
-        if($request->hasFile('image')) {
-            if($request->oldImage) {
-                Storage::delete('/foto_rumah/'.$request->oldImage);
+        if ($request->hasFile('image')) {
+            if ($request->oldImage) {
+                Storage::delete('/foto_rumah/' . $request->oldImage);
             }
-            $request->file('image')->storeAs('/foto_rumah',$filename);
+            $request->file('image')->storeAs('/foto_rumah', $filename);
         }
 
         $data->kepala_keluarga = $request->kepala_keluarga;
@@ -163,11 +166,13 @@ class KkController extends Controller
         $data->status_ekonomi = $request->status_ekonomi;
         $data->update();
 
-        $kk = User::where('id',$data->user_id)->update([
+        $kk = User::where('id', $data->user_id)->update([
             'name' => $request->kepala_keluarga,
             'email' => $request->no_kk,
         ]);
         // dd($kk);
+
+        Alert::success('Sukses!', 'Berhasil mengedit kartu keluarga');
 
         return redirect()->back();
     }
@@ -181,13 +186,15 @@ class KkController extends Controller
     public function destroy($id)
     {
         $data = DataKk::find($id);
-        if($data->image){
-            Storage::delete('/foto_rumah/'.$data->image);
+        if ($data->image) {
+            Storage::delete('/foto_rumah/' . $data->image);
         }
 
-        User::where('id','=',$data->user_id)->delete();
+        User::where('id', '=', $data->user_id)->delete();
 
         $data->delete();
+
+        Alert::Success('Sukses!', 'Berhasil menghapus kartu keluarga');
 
         return redirect()->back();
     }

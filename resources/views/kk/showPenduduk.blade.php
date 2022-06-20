@@ -17,11 +17,11 @@
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Nama Lengkap</label>
                             <input type="text" class="form-control" name="nama" id="exampleInputEmail1"
-                                aria-describedby="emailHelp">
+                                aria-describedby="emailHelp" required>
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Nomor NIK</label>
-                            <input type="text" class="form-control" name="nik" id="exampleInputPassword1">
+                            <input type="text" class="form-control" name="nik" id="exampleInputPassword1" required>
                         </div>
                         <div class="row mb-3">
                             <div class="col-sm-4">
@@ -95,7 +95,7 @@
 
                         <div class="mb-3">
                             <label for="">Pekerjaan</label>
-                            <input type="text" class="form-control" name="pekerjaan" id="exampleInputPassword1">
+                            <input type="text" class="form-control" name="pekerjaan" id="exampleInputPassword1" required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

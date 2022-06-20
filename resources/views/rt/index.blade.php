@@ -43,11 +43,11 @@
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Nama Ketua RT</label>
                             <input type="text" class="form-control" name="nama" id="exampleInputEmail1"
-                                aria-describedby="emailHelp">
+                                aria-describedby="emailHelp" required>
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">RT</label>
-                            <input type="text" class="form-control" name="rt" id="exampleInputPassword1">
+                            <input type="text" class="form-control" name="rt" id="exampleInputPassword1" required>
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">RW</label>
@@ -65,14 +65,14 @@
                             <div class="col">
                                 <div class="mb-3">
                                     <input type="text" class="form-control" name="periode_awal"
-                                        id="exampleInputPassword1">
+                                        id="exampleInputPassword1" required>
                                 </div>
                             </div>
                             &mdash;
                             <div class="col">
                                 <div class="mb-3">
                                     <input type="text" class="form-control" name="periode_akhir"
-                                        id="exampleInputPassword1">
+                                        id="exampleInputPassword1" required>
                                 </div>
                             </div>
                         </div>

@@ -15,25 +15,29 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Nama Ketua Rw</label>
-                            <input type="text" class="form-control" value="{{$d->nama}}" name="nama" id="exampleInputEmail1" aria-describedby="emailHelp">
-                          </div>
-                          <div class="mb-3">
+                            <input type="text" class="form-control" value="{{ $d->nama }}" name="nama"
+                                id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">RW</label>
-                            <input type="text" class="form-control" value="{{$d->rw}}" name="rw" id="exampleInputPassword1">
-                          </div>
+                            <input type="text" class="form-control" value="{{ $d->rw }}" name="rw"
+                                id="exampleInputPassword1" required>
+                        </div>
                         <div class="row">
                             <label for="exampleInputPassword1" class="form-label">Periode</label>
-        
+
                             <div class="col">
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" name="periode_awal" value="{{$d->periode_awal}}" id="exampleInputPassword1">
-                                  </div>
+                                    <input type="text" class="form-control" name="periode_awal"
+                                        value="{{ $d->periode_awal }}" id="exampleInputPassword1" required>
+                                </div>
                             </div>
                             &mdash;
                             <div class="col">
                                 <div class="mb-3">
-                                    <input type="text" class="form-control" name="periode_akhir" value="{{$d->periode_akhir}}" id="exampleInputPassword1">
-                                  </div>
+                                    <input type="text" class="form-control" name="periode_akhir"
+                                        value="{{ $d->periode_akhir }}" id="exampleInputPassword1" required>
+                                </div>
                             </div>
                         </div>
                     </div>

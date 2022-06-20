@@ -16,12 +16,12 @@
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Nama Kepala Keluarga</label>
                             <input type="text" class="form-control" value="{{ $d->kepala_keluarga }}"
-                                name="kepala_keluarga" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                name="kepala_keluarga" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Nomor Kartu Keluarga</label>
                             <input type="text" class="form-control" value="{{ $d->no_kk }}" name="no_kk"
-                                id="exampleInputPassword1">
+                                id="exampleInputPassword1" required>
                         </div>
                         <div class="row">
                             <div class="col">
@@ -63,9 +63,9 @@
 
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Foto Rumah</label>
-                            <input type="file" class="form-control" name="image" id="exampleInputPassword1" value="{{$d->image}}">
+                            <input type="file" class="form-control" name="image" id="exampleInputPassword1" value="{{$d->image}}" required>
                         </div>
-                        <input type="hidden" name= "oldImage" value="{{$d->image}}">
+                        <input type="hidden" name= "oldImage" value="{{$d->image}}" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn" data-bs-dismiss="modal">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataRw;
 use Illuminate\Http\Request;
 use App\User;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RwController extends Controller
 {
@@ -17,7 +18,7 @@ class RwController extends Controller
     {
         $data = DataRw::get();
 
-        return view('rw.index',compact('data'));
+        return view('rw.index', compact('data'));
     }
 
     /**
@@ -38,7 +39,7 @@ class RwController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'nama' => 'required',
             'rw' => 'required',
             'periode_awal' => 'required',
@@ -62,6 +63,8 @@ class RwController extends Controller
         $data->save();
 
         $rw->assignRole('rw');
+
+        Alert::success('Sukses!', 'Berhasil menambah kartu keluarga');
 
         return redirect()->back();
     }
@@ -112,13 +115,14 @@ class RwController extends Controller
         $data->periode_akhir = $request->periode_akhir;
         $data->update();
 
-        User::where('id','=',$data->user_id)->update([
+        User::where('id', '=', $data->user_id)->update([
             'name' => $request->nama,
-            'email'=> 'rw' . $request->rw . '@gmail.com',
-            ]);
+            'email' => 'rw' . $request->rw . '@gmail.com',
+        ]);
+
+        Alert::success('Sukses!', 'Berhasil mengedit kartu keluarga');
 
         return redirect()->route('rw.index');
-
     }
 
     /**
@@ -131,9 +135,11 @@ class RwController extends Controller
     {
         $data = DataRw::find($id);
 
-        User::where('id','=',$data->user_id)->delete();
+        User::where('id', '=', $data->user_id)->delete();
 
         $data->delete();
+
+        Alert::Success('Sukses!', 'Berhasil menghapus kartu keluarga');
 
         return redirect()->route('rw.index');
     }

@@ -6,7 +6,8 @@ use App\DataRt;
 use App\DataRw;
 use App\User;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RtController extends Controller
 {
@@ -21,8 +22,8 @@ class RtController extends Controller
         $user = Auth::user();
         // dd($user->Rw[0]);
 
-        if($user->hasRole('rw') == true) {
-            $data = DataRt::where('rw_id','=',$user->Rw[0]->id)->get();
+        if ($user->hasRole('rw') == true) {
+            $data = DataRt::where('rw_id', '=', $user->Rw[0]->id)->get();
         } else {
             $data = DataRt::all();
         }
@@ -32,7 +33,7 @@ class RtController extends Controller
 
 
         $select = DataRw::get();
-        return view('rt.index',compact(['data','select','user']));
+        return view('rt.index', compact(['data', 'select', 'user']));
     }
 
     /**
@@ -53,19 +54,19 @@ class RtController extends Controller
      */
     public function store(Request $request)
     {
-        $dataRt = DataRw::where('id',$request->rw_id)->get();
+        $dataRt = DataRw::where('id', $request->rw_id)->get();
         // dd($dataRt[0]->rw);
-        $this->validate($request,[
-            'nama'=> 'required',
-            'rt'=> 'required',
-            'rw_id'=> 'required',
-            'periode_awal'=> 'required',
-            'periode_akhir'=> 'required'
+        $this->validate($request, [
+            'nama' => 'required',
+            'rt' => 'required',
+            'rw_id' => 'required',
+            'periode_awal' => 'required',
+            'periode_akhir' => 'required'
         ]);
 
         $rt = User::create([
             'name' => $request->nama,
-            'email' => 'rt' . $request->rt . $dataRt[0]->rw. '@gmail.com',
+            'email' => 'rt' . $request->rt . $dataRt[0]->rw . '@gmail.com',
             'password' =>  bcrypt('password'),
         ]);
         // dd($rt);
@@ -81,6 +82,8 @@ class RtController extends Controller
         $data->save();
 
         $rt->assignRole('rt');
+
+        Alert::success('Sukses!', 'Berhasil menambah kartu keluarga');
 
         return redirect()->back();
     }
@@ -123,7 +126,7 @@ class RtController extends Controller
             'rt' => 'required',
             'periode_awal' => 'required',
             'periode_akhir' => 'required',
-            'rw_id'=> 'required',
+            'rw_id' => 'required',
         ]);
 
         $data->nama = $request->nama;
@@ -135,12 +138,12 @@ class RtController extends Controller
         $data->update();
         // dd($data->rw->rw);
 
-        $rt = User::where('id',$data->user_id)->update([
+        $rt = User::where('id', $data->user_id)->update([
             'name' => $request->nama,
-            'email' => 'rt' . $request->rt . $data->rw->rw. '@gmail.com',
+            'email' => 'rt' . $request->rt . $data->rw->rw . '@gmail.com',
         ]);
 
-        // dd($rt);
+        Alert::success('Sukses!', 'Berhasil mengedit kartu keluarga');
 
         return redirect()->route('rt.index');
     }
@@ -154,9 +157,11 @@ class RtController extends Controller
     public function destroy($id)
     {
         $data = DataRt::find($id);
-        User::where('id','=',$data->user_id)->delete();
+        User::where('id', '=', $data->user_id)->delete();
         // dd($data);
         $data->delete();
+
+        Alert::Success('Sukses!', 'Berhasil menghapus kartu keluarga');
 
         return redirect()->route('rt.index');
     }
