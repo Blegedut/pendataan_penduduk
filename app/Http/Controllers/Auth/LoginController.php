@@ -51,9 +51,9 @@ class LoginController extends Controller
     }elseif ($user->hasRole('rw')) {
         return redirect()->route('rt.index')->with('toast_success', 'Welcome,' . '&nbsp;' .$user->username);
     } elseif ($user->hasRole('rt')) {
-        return redirect()->route('penduduk.index')->with('toast_success', 'Welcome,' . '&nbsp;' .$user->username);
+        return redirect()->route('kk.index')->with('toast_success', 'Welcome,' . '&nbsp;' .$user->username);
     }elseif ($user->hasRole('warga')) {
-        return redirect()->route('penduduk.index')->with('toast_success', 'Welcome,' . '&nbsp;' .$user->username);
+        return redirect()->route('kk.index')->with('toast_success', 'Welcome,' . '&nbsp;' .$user->username);
     }
     return redirect()->route('login');
 }

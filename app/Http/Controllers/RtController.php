@@ -6,6 +6,7 @@ use App\DataRt;
 use App\DataRw;
 use App\User;
 use Illuminate\Http\Request;
+use Auth;
 
 class RtController extends Controller
 {
@@ -16,10 +17,22 @@ class RtController extends Controller
      */
     public function index()
     {
-        $data = DataRt::all();
+
+        $user = Auth::user();
+        // dd($user->Rw[0]);
+
+        if($user->hasRole('rw') == true) {
+            $data = DataRt::where('rw_id','=',$user->Rw[0]->id)->get();
+        } else {
+            $data = DataRt::all();
+        }
+
+        // dd($data);
+
+
 
         $select = DataRw::get();
-        return view('rt.index',compact(['data','select']));
+        return view('rt.index',compact(['data','select','user']));
     }
 
     /**
@@ -118,13 +131,16 @@ class RtController extends Controller
         $data->rw_id = $request->rw_id;
         $data->periode_awal = $request->periode_awal;
         $data->periode_akhir = $request->periode_akhir;
-        $data->update();
         // dd($data);
+        $data->update();
+        // dd($data->rw->rw);
 
-        // User::where('id',$data->id)->update([
-        //     'name' => $request->name,
-        //     'email' => 'rt' . $request->rt . '@gmail.com'
-        // ]);
+        $rt = User::where('id',$data->user_id)->update([
+            'name' => $request->nama,
+            'email' => 'rt' . $request->rt . $data->rw->rw. '@gmail.com',
+        ]);
+
+        // dd($rt);
 
         return redirect()->route('rt.index');
     }
@@ -138,6 +154,7 @@ class RtController extends Controller
     public function destroy($id)
     {
         $data = DataRt::find($id);
+        User::where('id','=',$data->user_id)->delete();
         // dd($data);
         $data->delete();
 

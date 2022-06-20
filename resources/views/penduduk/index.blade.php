@@ -28,6 +28,7 @@
             <section class="section">
                 <div class="card shadow mb-5">
                     <div class="card-body">
+                        @hasrole('superadmin')
                         <form id="filter-tanggal" method="GET" action="{{ url('/penduduk/filter') }}">
                             <div class="row justify-content-start mb-4">
                                 <div class="col-1">
@@ -54,6 +55,7 @@
                                 </div>
                             </div>
                         </form>
+                        @endhasrole
                         <table class="table table-striped" id="table1">
                             <thead>
                                 <tr>

@@ -6,6 +6,7 @@ use App\DataKk;
 use App\DataPenduduk;
 use App\DataRt;
 use App\DataRw;
+use Auth;
 // use App\Exports\PendudukExport;
 // use Maatwebsite\Excel\Fa\Excel;
 use Illuminate\Http\Request;
@@ -22,7 +23,17 @@ class PendudukController extends Controller
      */
     public function index()
     {
-        $data = DataPenduduk::all();
+        $user =  Auth::user();
+        // dd($user->Rw[0]);
+
+        if($user->hasRole('rw') == true) {
+            $data = DataPenduduk::where('rw_id','=',$user->Rw[0]->id)->get();
+        }  elseif($user->hasRole('rt') == true) {
+            $data = DataPenduduk::where('rt_id',$user->Rt[0]->id)->get();
+        } else {
+            $data = DataPenduduk::all();
+        }
+
         $selectRt = DataRt::get();
         $selectRw = DataRw::get();
         return view('penduduk.index', compact('data', 'selectRt', 'selectRw'));
@@ -185,7 +196,7 @@ class PendudukController extends Controller
         return view('penduduk.index', compact(['data','selectRw','selectRt']));
     }
 
-    // public function expot() 
+    // public function expot()
     // {
     //     return (new PendudukExport)->download('invoices.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     // }

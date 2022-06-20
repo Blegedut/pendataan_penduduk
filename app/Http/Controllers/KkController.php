@@ -6,7 +6,9 @@ use App\DataKk;
 use App\DataPenduduk;
 use App\DataRt;
 use App\DataRw;
+use App\User;
 use Illuminate\Http\Request;
+use Auth;
 use Illuminate\Support\Facades\Storage;
 
 class KkController extends Controller
@@ -18,7 +20,20 @@ class KkController extends Controller
      */
     public function index()
     {
-        $data = DataKk::all();
+
+        $user =  Auth::user();
+        // dd($user);
+
+        if($user->hasRole('rw') == true) {
+            $data = DataKk::where('rw_id','=',$user->Rw[0]->id)->get();
+        } elseif($user->hasRole('rt') == true) {
+            $data = DataKk::where('rt_id',$user->Rt[0]->id)->get();
+        } elseif ($user->hasRole('warga') == true) {
+            $data = DataKk::where('user_id',$user->Kk[0]->user_id)->get();
+        } else {
+            $data = DataKk::all();
+        }
+        // $data = DataKk::all();
 
         $selectRt = DataRt::get();
         $selectRw = DataRw::get();
@@ -52,11 +67,20 @@ class KkController extends Controller
             'status_ekonomi' => 'required',
         ]);
 
+        $kk  = User::create([
+            'name' => $request->kepala_keluarga,
+            'email' => $request->no_kk ,
+            'password' =>  bcrypt('password'),
+        ]);
+
+        // dd($kk);
+
         $data = new DataKk();
         $data->kepala_keluarga = $request->kepala_keluarga;
         $data->no_kk = $request->no_kk;
         $data->rt_id = $request->rt_id;
         $data->rw_id = $request->rw_id;
+        $data->user_id = $kk->id;
         $data->status_ekonomi = $request->status_ekonomi;
 
         $img = $request->file('image');
@@ -66,7 +90,11 @@ class KkController extends Controller
         if($request->hasFile('image')) {
             $request->file('image')->storeAs('/foto_rumah',$filename);
         }
+        // dd($data);
         $data->save();
+
+        $kk->assignRole('warga');
+
 
         return redirect()->back();
     }
@@ -111,10 +139,9 @@ class KkController extends Controller
         $request->validate([
             'kepala_keluarga' => 'required',
             'no_kk' => 'required',
-            // 'image' => 'required|file|max:3072',
+            'image' => 'required|file|max:3072',
             'rt_id' => 'required',
             'rw_id' => 'required',
-            'jumlah_individu' => 'required',
             'status_ekonomi' => 'required',
         ]);
 
@@ -133,9 +160,14 @@ class KkController extends Controller
         $data->no_kk = $request->no_kk;
         $data->rt_id = $request->rt_id;
         $data->rw_id = $request->rw_id;
-        $data->jumlah_individu = $request->jumlah_individu;
         $data->status_ekonomi = $request->status_ekonomi;
         $data->update();
+
+        $kk = User::where('id',$data->user_id)->update([
+            'name' => $request->kepala_keluarga,
+            'email' => $request->no_kk,
+        ]);
+        // dd($kk);
 
         return redirect()->back();
     }
@@ -152,6 +184,9 @@ class KkController extends Controller
         if($data->image){
             Storage::delete('/foto_rumah/'.$data->image);
         }
+
+        User::where('id','=',$data->user_id)->delete();
+
         $data->delete();
 
         return redirect()->back();

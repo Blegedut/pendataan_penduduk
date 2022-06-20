@@ -139,7 +139,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-content">
                         <div class="card-body">
                             {{-- {{$data}} --}}
@@ -204,10 +204,10 @@
                             <i class="fas fa-plus"></i> Tambah Data
                         </button>
                         @if (count($penduduk) > 0)
-                        <a href={{ url('/penduduk/export/'. $data->id) }} class="btn btn-danger rounded-pill mb-3 mr-1"> 
+                        <a href={{ url('/penduduk/export/'. $data->id) }} class="btn btn-danger rounded-pill mb-3 mr-1">
                             <i class="fas fa-file-pdf"></i>
                             <span>Export Pdf</span>
-                        </a> 
+                        </a>
                         @endif
                         <table class="table table-striped" id="table1">
                             <thead>

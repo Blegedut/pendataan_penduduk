@@ -28,4 +28,10 @@ class DataRt extends Model
     public function pdd () {
         return $this->hasMany('App\DataPenduduk','rt_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 }

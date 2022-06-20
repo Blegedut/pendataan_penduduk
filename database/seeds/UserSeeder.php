@@ -20,28 +20,28 @@ class UserSeeder extends Seeder
 
         $admin->assignRole('superadmin');
 
-        $admin = User::create([
-            'name' => 'rw',
-            'email' => 'rw@gmail.com',
-            'password' => bcrypt('password'),
-        ]);
+        // $admin = User::create([
+        //     'name' => 'rw',
+        //     'email' => 'rw@gmail.com',
+        //     'password' => bcrypt('password'),
+        // ]);
 
-        $admin->assignRole('rw');
+        // $admin->assignRole('rw');
 
-        $user = User::create([
-            'name' => 'rt',
-            'email' => 'rt@gmail.com',
-            'password' => bcrypt('password'),
-        ]);
+        // $user = User::create([
+        //     'name' => 'rt',
+        //     'email' => 'rt@gmail.com',
+        //     'password' => bcrypt('password'),
+        // ]);
 
-        $user->assignRole('rt');
+        // $user->assignRole('rt');
 
-        $user = User::create([
-            'name' => 'warga',
-            'email' => 'warga@gmail.com',
-            'password' => bcrypt('password'),
-        ]);
+        // $user = User::create([
+        //     'name' => 'warga',
+        //     'email' => 'warga@gmail.com',
+        //     'password' => bcrypt('password'),
+        // ]);
 
-        $user->assignRole('warga');
+        // $user->assignRole('warga');
     }
 }

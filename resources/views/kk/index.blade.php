@@ -33,7 +33,7 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="col">
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">RT</label>
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                
+
 
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Status Ekonomi</label>
@@ -124,10 +124,10 @@
                             </thead>
                             <tbody>
                                 @foreach ($data as $d)
-                                    
+
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td><img src={{asset('storage/foto_rumah/'.$d->image)}} width="200px;" alt=""></td>
+                                    <td><img src={{asset('storage/foto_rumah/'.$d->image)}} width="200px;" alt="{{$d->image}}"></td>
                                     <td>{{$d->kepala_keluarga}}</td>
                                     <td>{{$d->no_kk}}</td>
                                     <td>{{$d->Rw->rw}} / {{$d->Rt->rt}}</td>
