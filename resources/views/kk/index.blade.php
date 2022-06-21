@@ -19,7 +19,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Nomor Kartu Keluarga</label>
-                    <input type="text" class="form-control" placeholder="Nomor Kartu Keluarga" name="no_kk" id="exampleInputPassword1" required>
+                    <input type="text" class="form-control" placeholder="Nomor Kartu Keluarga" name="no_kk" id="exampleInputPassword1" maxlength="16" minlength="16" required>
                 </div>
                 <div class="row">
                     <div class="col">
@@ -127,7 +127,7 @@
 
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td><img src={{asset('storage/foto_rumah/'.$d->image)}} width="200px;" alt="{{$d->image}}"></td>
+                                    <td><img src={{asset('storage/foto_rumah/'.$d->image)}} width="200px;" height="150px;" alt="{{$d->image}}"></td>
                                     <td>{{$d->kepala_keluarga}}</td>
                                     <td>{{$d->no_kk}}</td>
                                     <td>{{$d->Rw->rw}} / {{$d->Rt->rt}}</td>

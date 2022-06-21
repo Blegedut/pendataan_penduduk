@@ -21,7 +21,7 @@
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Nomor Kartu Keluarga</label>
                             <input type="text" class="form-control" value="{{ $d->no_kk }}" name="no_kk"
-                                id="exampleInputPassword1" required>
+                                id="exampleInputPassword1" maxlength="16" minlength="16" required>
                         </div>
                         <div class="row">
                             <div class="col">

@@ -20,7 +20,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Nomor NIK</label>
-                            <input type="text" class="form-control" value="{{$d->nik}}" name="nik" id="exampleInputPassword1" required>
+                            <input type="text" class="form-control" value="{{$d->nik}}" name="nik" id="exampleInputPassword1" maxlength="16" minlength="16" required>
                         </div>
                         <div class="row mb-3">
                             <div class="col-sm-4">
