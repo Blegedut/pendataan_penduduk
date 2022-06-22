@@ -23,7 +23,7 @@ Route::get('/', function () {
 // });
 
 Route::group(['middleware' => ['auth']], function () {
-    
+
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     Route::group(['prefix' => 'rw'], function () {
@@ -55,8 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::post('/edit-profile', 'DashboardController@editProfile')->name('profile.edit');
+    Route::get('/home', 'HomeController@index')->name('home');
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
