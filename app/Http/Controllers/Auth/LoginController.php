@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\DataPenduduk;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class LoginController extends Controller
@@ -45,18 +47,22 @@ class LoginController extends Controller
     }
 
     public function authenticated(Request $request, $user)
-{
-    if ($user->hasRole('superadmin')) {
-        return redirect()->route('dashboard')->with('toast_success', 'Welcome,' . '&nbsp;' .$user->username);
-    }elseif ($user->hasRole('rw')) {
-        return redirect()->route('rt.index')->with('toast_success', 'Welcome,' . '&nbsp;' .$user->username);
-    } elseif ($user->hasRole('rt')) {
-        return redirect()->route('kk.index')->with('toast_success', 'Welcome,' . '&nbsp;' .$user->username);
-    }elseif ($user->hasRole('warga')) {
-        return redirect()->route('kk.index')->with('toast_success', 'Welcome,' . '&nbsp;' .$user->username);
+    {
+        // $penduduk = DataPenduduk::get();
+        $penduduk = Auth::user();
+        // dd($user->Kk[0]->id);
+
+        if ($user->hasRole('superadmin')) {
+            return redirect()->route('dashboard')->with('toast_success', 'Welcome,' . '&nbsp;' . $user->name);
+        } elseif ($user->hasRole('rw')) {
+            return redirect()->route('rt.index')->with('toast_success', 'Welcome,' . '&nbsp;' . $user->name);
+        } elseif ($user->hasRole('rt')) {
+            return redirect()->route('kk.index')->with('toast_success', 'Welcome,' . '&nbsp;' . $user->name);
+        } elseif ($user->hasRole('warga')) {
+            return redirect()->route('kk.index')->with('toast_success', 'Welcome,' . '&nbsp;' . $user->name);
+        }
+        return redirect()->route('login');
     }
-    return redirect()->route('login');
-}
 
     /**
      * Create a new controller instance.

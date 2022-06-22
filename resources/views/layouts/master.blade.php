@@ -19,6 +19,35 @@
 </head>
 
 <body>
+    <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/edit-profile" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Email / No KK</label>
+                            <input type="text" class="form-control" name="email" id="exampleInputPassword1"
+                                value="{{ \Auth::user()->email }}" required readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" id="exampleInputPassword1"
+                                required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
@@ -90,6 +119,12 @@
                             </li>
                         @endhasrole
                         <li class="sidebar-title">Setting</li>
+                        <li class="sidebar-item {{ request()->is('penduduk*') ? 'active' : '' }}">
+                            <a data-bs-toggle ='modal' data-bs-target="#edit" class='sidebar-link'>
+                                <i class="fas fa-user-edit"></i>
+                                <span>Edit Profile</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item ">
                             {{-- <a href={{ url('/penduduk') }} class='sidebar-link'> --}}
                             <a class="sidebar-link" href="{{ route('logout') }}"

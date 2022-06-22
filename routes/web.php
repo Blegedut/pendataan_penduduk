@@ -53,6 +53,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/export/{id}', 'PendudukController@export')->name('penduduk.export');
         Route::get('/filter', 'PendudukController@filter')->name('filter.data');
     });
+
+    Route::post('/edit-profile', 'DashboardController@editProfile')->name('profile.edit');
 });
 
 Auth::routes();
