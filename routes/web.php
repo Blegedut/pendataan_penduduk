@@ -51,6 +51,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'penduduk'], function () {
         Route::get('/', 'PendudukController@index')->name('penduduk.index');
         Route::get('/export/{id}', 'PendudukController@export')->name('penduduk.export');
+        Route::get('/exportRt/{id}', 'PendudukController@exportRt')->name('penduduk.exportRt');
+        Route::get('/exportRw/{id}', 'PendudukController@exportRw')->name('penduduk.exportRw');
+        Route::get('/exportAll/{id}', 'PendudukController@exportAll')->name('penduduk.exportAll');
         Route::get('/filter', 'PendudukController@filter')->name('filter.data');
     });
 

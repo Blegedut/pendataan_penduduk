@@ -29,33 +29,54 @@
                 <div class="card shadow mb-5">
                     <div class="card-body">
                         @hasrole('superadmin')
-                        <form id="filter-tanggal" method="GET" action="{{ url('/penduduk/filter') }}">
-                            <div class="row justify-content-start mb-4">
-                                <div class="col-1">
-                                    RW
-                                    <select name="rw_id" id="" class="form-select">
-                                        <option value="">-- Pilih RW --</option>
-                                        @foreach ($selectRw as $rw)
-                                            <option value="{{ $rw->id }}">{{ $rw->rw }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                            <form id="filter-tanggal" method="GET" action="{{ url('/penduduk/filter') }}">
+                                <div class="row justify-content-start mb-4">
+                                    <div class="col-1">
+                                        RW
+                                        <select name="rw_id" id="" class="form-select">
+                                            <option value="">-- Pilih RW --</option>
+                                            @foreach ($selectRw as $rw)
+                                                <option value="{{ $rw->id }}">{{ $rw->rw }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
-                                <div class="col-1">
-                                    RT
-                                    <select name="rt_id" id="" class="form-select">
-                                        <option value="">-- Pilih RT --</option>
-                                        @foreach ($selectRt as $rt)
-                                            <option value="{{ $rt->id }}">{{ $rt->rt }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="col-1">
+                                        RT
+                                        <select name="rt_id" id="" class="form-select">
+                                            <option value="">-- Pilih RT --</option>
+                                            @foreach ($selectRt as $rt)
+                                                <option value="{{ $rt->id }}">{{ $rt->rt }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-4 mt-4">
+                                        <button type="submit" class="btn btn-primary">Filter</button>
+                                    </div>
                                 </div>
-                                <div class="col-4 mt-4">
-                                    <button type="submit" class="btn btn-primary">Filter</button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
                         @endhasrole
+                        @dd(App\User::role('superadmin') == true)
+                        {{-- @if (App\User::hasrole('rt') == true)
+                            <a href={{ url('/penduduk/exportRt/' . Auth::user()->Rt[0]->id) }}
+                                class="btn btn-danger rounded-pill mb-3 mr-1">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>Export Pdf</span>
+                            </a>
+                        @else
+                        @endif --}}
+
+                        {{-- @dd(Auth::user()->Rt[0]->id) --}}
+                        {{-- <a href={{ url('/penduduk/exportRw/' . Auth::user()->Rw[0]->id) }}
+                            class="btn btn-danger rounded-pill mb-3 mr-1">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>Export Pdf</span>
+                        </a>
+                        <a href={{ url('/penduduk/exportAll/' . Auth::user()->id) }}
+                            class="btn btn-danger rounded-pill mb-3 mr-1">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>Export Pdf</span>
+                        </a> --}}
                         <table class="table table-striped" id="table1">
                             <thead>
                                 <tr>

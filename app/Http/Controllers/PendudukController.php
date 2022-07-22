@@ -186,6 +186,39 @@ class PendudukController extends Controller
         return $pdf->download('kk.pdf');
     }
 
+    public function exportRt($id)
+    {
+        $data = DataRt::where('id', $id)->firstOrFail();
+        // dd($data);
+        $penduduk = DataPenduduk::where('rt_id', $data->id)->get();
+        // dd($penduduk);
+        // PDF::loadHTML($html)->setPaper('a4', 'landscape')->setWarnings(false)->save('myfile.pdf')
+        $pdf = PDF::loadview('penduduk.exportRt', ['kk' => $penduduk], compact('penduduk'))->setPaper('a4', 'landscape')->setWarnings(false);
+        return $pdf->download('rt.pdf');
+    }
+
+    public function exportRw($id)
+    {
+        $data = DataRt::where('id', $id)->firstOrFail();
+        // dd($data);
+        $penduduk = DataPenduduk::where('rw_id', $data->id)->get();
+        // dd($penduduk);
+        // PDF::loadHTML($html)->setPaper('a4', 'landscape')->setWarnings(false)->save('myfile.pdf')
+        $pdf = PDF::loadview('penduduk.exportRw', ['kk' => $penduduk], compact('penduduk'))->setPaper('a4', 'landscape')->setWarnings(false);
+        return $pdf->download('rw.pdf');
+    }
+
+    public function exportAll($id)
+    {
+        $data = DataRt::where('id', $id)->firstOrFail();
+        // dd($data);
+        $penduduk = DataPenduduk::all();
+        // dd($penduduk);
+        // PDF::loadHTML($html)->setPaper('a4', 'landscape')->setWarnings(false)->save('myfile.pdf')
+        $pdf = PDF::loadview('penduduk.exportAll', ['kk' => $penduduk], compact('penduduk'))->setPaper('a4', 'landscape')->setWarnings(false);
+        return $pdf->download('All.pdf');
+    }
+
     public function filter(Request $request)
     {
         $selectRt = DataRt::get();

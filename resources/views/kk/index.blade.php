@@ -109,7 +109,7 @@
             <section class="section">
                 <div class="card shadow mb-5">
                     <div class="card-body">
-                        @hasrole('superadmin | rw | rt')
+                        @hasrole('superadmin|rw|rt')
                             <button class="btn btn-primary rounded-pill mb-3" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
                                 <i class="fas fa-plus"></i> Tambah Data
