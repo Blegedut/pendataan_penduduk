@@ -56,27 +56,26 @@
                                 </div>
                             </form>
                         @endhasrole
-                        @dd(App\User::role('superadmin') == true)
-                        {{-- @if (App\User::hasrole('rt') == true)
+                        {{-- @dd(App\User::role('superadmin') == true) --}}
+                        @if (Auth::user()->hasrole('rt') == true)
                             <a href={{ url('/penduduk/exportRt/' . Auth::user()->Rt[0]->id) }}
                                 class="btn btn-danger rounded-pill mb-3 mr-1">
                                 <i class="fas fa-file-pdf"></i>
                                 <span>Export Pdf</span>
                             </a>
+                        @elseif (Auth::user()->hasrole('rw') == true)
+                            <a href={{ url('/penduduk/exportRw/' . Auth::user()->Rw[0]->id) }}
+                                class="btn btn-danger rounded-pill mb-3 mr-1">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>Export Pdf</span>
+                            </a>
                         @else
-                        @endif --}}
-
-                        {{-- @dd(Auth::user()->Rt[0]->id) --}}
-                        {{-- <a href={{ url('/penduduk/exportRw/' . Auth::user()->Rw[0]->id) }}
-                            class="btn btn-danger rounded-pill mb-3 mr-1">
-                            <i class="fas fa-file-pdf"></i>
-                            <span>Export Pdf</span>
-                        </a>
-                        <a href={{ url('/penduduk/exportAll/' . Auth::user()->id) }}
-                            class="btn btn-danger rounded-pill mb-3 mr-1">
-                            <i class="fas fa-file-pdf"></i>
-                            <span>Export Pdf</span>
-                        </a> --}}
+                            <a href={{ url('/penduduk/exportAll/' . Auth::user()->id) }}
+                                class="btn btn-danger rounded-pill mb-3 mr-1">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>Export Pdf</span>
+                            </a>
+                        @endif
                         <table class="table table-striped" id="table1">
                             <thead>
                                 <tr>
