@@ -199,7 +199,7 @@ class PendudukController extends Controller
 
     public function exportRw($id)
     {
-        $data = DataRt::where('id', $id)->firstOrFail();
+        $data = DataRw::where('id', $id)->firstOrFail();
         // dd($data);
         $penduduk = DataPenduduk::where('rw_id', $data->id)->get();
         // dd($penduduk);
@@ -210,7 +210,7 @@ class PendudukController extends Controller
 
     public function exportAll($id)
     {
-        $data = DataRt::where('id', $id)->firstOrFail();
+        // $data = DataRt::where('id', $id)->firstOrFail();
         // dd($data);
         $penduduk = DataPenduduk::all();
         // dd($penduduk);

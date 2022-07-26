@@ -69,8 +69,8 @@
                                 <i class="fas fa-file-pdf"></i>
                                 <span>Export Pdf</span>
                             </a>
-                        @else
-                            <a href={{ url('/penduduk/exportAll/' . Auth::user()->id) }}
+                        @elseif (Auth::user()->hasrole('superadmin') == true)
+                            <a href={{ route('penduduk.exportAll', Auth::user()->id) }}
                                 class="btn btn-danger rounded-pill mb-3 mr-1">
                                 <i class="fas fa-file-pdf"></i>
                                 <span>Export Pdf</span>

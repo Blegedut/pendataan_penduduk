@@ -56,13 +56,13 @@
                         <div class="title">
                             <h3>Pendataan Penduduk</h3>
                         </div>
-                        <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
+                        <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
                             <div class="form-check form-switch fs-6">
-                                <input class="form-check-input  me-0" type="hidden" id="toggle-light">
+                                <input class="form-check-input me-0" type="checkbox" id="toggle-dark" hidden/>
                                 <label class="form-check-label"></label>
                             </div>
                         </div>
-                        <div class="sidebar-toggler  x">
+                        <div class="sidebar-toggler x">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i
                                     class="bi bi-x bi-middle"></i></a>
                         </div>
@@ -120,7 +120,7 @@
                         @endhasrole
                         <li class="sidebar-title">Setting</li>
                         <li class="sidebar-item {{ request()->is('penduduk*') ? 'active' : '' }}">
-                            <a data-bs-toggle ='modal' data-bs-target="#edit" class='sidebar-link'>
+                            <a data-bs-toggle='modal' data-bs-target="#edit" class='sidebar-link'>
                                 <i class="fas fa-user-edit"></i>
                                 <span>Edit Profile</span>
                             </a>
