@@ -81,6 +81,7 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama</th>
+                                    <th>Kelamin</th>
                                     <th>NIK</th>
                                     <th>No. KK</th>
                                     <th>Alamat</th>
@@ -89,6 +90,7 @@
                                     <th>Tempat & Tanggal Lahir</th>
                                     <th>Usia</th>
                                     <th>Status Keluarga</th>
+                                    <th>Status Ekonomi</th>
                                     <th>Pekerjaan</th>
                                     <th>Status Pernikahan</th>
                                 </tr>
@@ -98,6 +100,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $d->nama }}</td>
+                                        <td>{{ $d->gender }}</td>
                                         <td>{{ $d->nik }}</td>
                                         <td>{{ $d->kk->no_kk }}</td>
                                         <td>{{ $d->alamat }}</td>
@@ -107,6 +110,7 @@
                                             {{ Carbon\Carbon::parse($d->tgl_lahir)->format('d-m-Y') }}</td>
                                         <td>{{ $d->usia }}</td>
                                         <td>{{ $d->status_keluarga }}</td>
+                                        <td>{{ $d->kk->status_ekonomi }}</td>
                                         <td>{{ $d->pekerjaan }}</td>
                                         <td>{{ $d->status_pernikahan }}</td>
                                     </tr>

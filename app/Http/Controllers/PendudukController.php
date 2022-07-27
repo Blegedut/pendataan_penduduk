@@ -33,7 +33,8 @@ class PendudukController extends Controller
 
         $selectRt = DataRt::get();
         $selectRw = DataRw::get();
-        return view('penduduk.index', compact('data', 'selectRt', 'selectRw'));
+        $kk = DataKk::get();
+        return view('penduduk.index', compact('data', 'selectRt', 'selectRw', 'kk'));
     }
 
     /**
