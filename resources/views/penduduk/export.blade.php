@@ -17,7 +17,7 @@
     <center>
         <h4>Data Kartu Keluarga</h4>
         @foreach ($penduduk as $pd)
-            <h5>{{ $pd->kk->no_kk }}</h5>
+            <h5>No . {{ $pd->kk->no_kk }}</h5>
         @endforeach
     </center>
 
