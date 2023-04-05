@@ -91,6 +91,7 @@ class KkController extends Controller
         $data->image = $request->file('image')->getClientOriginalName();
         if ($request->hasFile('image')) {
             $request->file('image')->storeAs('/foto_rumah', $filename);
+
         }
         // dd($data);
         $data->save();
